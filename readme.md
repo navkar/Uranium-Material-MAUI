@@ -5,7 +5,7 @@ This is a demo Uranium Material design app.
 screenshots
 
 <div align="center">
-  <img src="./screenshots/Home.jpg" alt="JPG" />
+  <img src="./pics/0.jpg" alt="home" />
 </div>
 
 ## Installation
