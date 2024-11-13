@@ -1,12 +1,10 @@
 ﻿# Uranium Demo App - MAUI Material Design
 
+![1](https://github.com/user-attachments/assets/c57a7321-cacb-4c51-9672-177ffcdfa35f)
+
 This is a demo Uranium Material design app.  
 👉 I have cloned it from the source and compiled it to save your time. 
 screenshots
-
-<div align="center">
-  <img src="./pics/0.jpg" alt="home" />
-</div>
 
 ## Installation
 
