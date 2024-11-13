@@ -3,6 +3,8 @@
 This is a demo Uranium Material design app.  
 👉 I have cloned it from the source and compiled it to save your time. 
 
+<img src="https://github.com/navkar/Uranium-Material-MAUI/blob/main/screenshots/Home.jpg" alt="Your image title" width="250"/>
+
 ## Installation
 
 Restore Nuget using command line `dotnet restore` in Package Manager console
