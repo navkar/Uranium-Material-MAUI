@@ -2,6 +2,11 @@
 
 This is a demo Uranium Material design app.  
 👉 I have cloned it from the source and compiled it to save your time. 
+screenshots
+
+<div align="center">
+  <img src="./screenshots/Home.jpg" alt="JPG" />
+</div>
 
 ## Installation
 
