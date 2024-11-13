@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage x:Class="UraniumApp.Pages.DataGrids.CustomDataGridPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:UraniumApp.Pages.DataGrids"
+             xmlns:m="clr-namespace:UraniumUI.Icons.MaterialSymbols;assembly=UraniumUI.Icons.MaterialSymbols"
+             xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             xmlns:plain="clr-namespace:Plainer.Maui.Controls;assembly=Plainer.Maui"
+             BindingContext="{uranium:Inject {Type local:CustomDataGridPageViewModel}}"
+             x:DataType="local:CustomDataGridPageViewModel"
+             x:Name="page">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+
+                <Label Text="Custom CellItemTemplate for each column" FontSize="Title"  HorizontalOptions="Center" />
+                <BoxView StyleClass="Divider" Margin="8,20" />
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Button StyleClass="FilledButton" Text="Add data" Command="{Binding AddNewCommand}" />
+                </HorizontalStackLayout>
+
+                <material:DataGrid ItemsSource="{Binding Items}" HorizontalOptions="Center" Margin="30">
+
+                    <ActivityIndicator IsRunning="{Binding IsBusy}" Margin="40" />
+
+                    <material:DataGrid.EmptyView>
+                        <VerticalStackLayout Margin="80,20">
+                            <Image
+                               WidthRequest="40"
+                               HeightRequest="40"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               Source="{FontImageSource FontFamily=MaterialOutlined, Glyph={x:Static m:MaterialOutlined.Backup_table}, Color={AppThemeBinding Light={StaticResource OnSurface}, Dark={StaticResource OnSurfaceDark}}}"/>
+                            <Label Text="No data available..." HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </material:DataGrid.EmptyView>
+
+                    <material:DataGrid.Columns>
+
+                        <material:DataGridColumn Title="Student Name">
+                            <material:DataGridColumn.CellItemTemplate>
+                                <DataTemplate x:DataType="local:Student">
+                                    <Label Text="{Binding Name}" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" Margin="0" />
+                                </DataTemplate>
+                            </material:DataGridColumn.CellItemTemplate>
+                        </material:DataGridColumn>
+
+                        <material:DataGridColumn Title="Age">
+                            <material:DataGridColumn.CellItemTemplate>
+                                <DataTemplate x:DataType="local:Student">
+                                    <Border Padding="3" HorizontalOptions="Center" VerticalOptions="Center"
+                                            StrokeShape="RoundRectangle 6"
+                                            BackgroundColor="{AppThemeBinding Light={StaticResource Tertiary}, Dark={StaticResource TertiaryDark}}">
+                                        <plain:EntryView Text="{Binding Age}" TextColor="{AppThemeBinding Light={StaticResource OnTertiary}, Dark={StaticResource OnTertiaryDark}}" HorizontalOptions="Center"/>
+                                    </Border>
+                                </DataTemplate>
+                            </material:DataGridColumn.CellItemTemplate>
+                        </material:DataGridColumn>
+
+                        <material:DataGridColumn ValueBinding="{Binding Id}" Title="Identity" />
+
+                        <material:DataGridColumn Title="Actions" >
+                            <material:DataGridColumn.CellItemTemplate>
+                                <DataTemplate>
+                                    <Button Text="Remove" 
+                                            BackgroundColor="{AppThemeBinding Light={StaticResource Secondary},Dark={StaticResource SecondaryDark}}" 
+                                            TextColor="{AppThemeBinding Light={StaticResource OnSecondary},Dark={StaticResource OnSecondaryDark}}"
+                                            Command="{Binding Source={x:Reference page}, Path=BindingContext.RemoveItemCommand}"
+                                            CommandParameter="{Binding .}"
+                                            />
+                                </DataTemplate>
+                            </material:DataGridColumn.CellItemTemplate>
+                        </material:DataGridColumn>
+                        
+                    </material:DataGrid.Columns>
+                </material:DataGrid>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

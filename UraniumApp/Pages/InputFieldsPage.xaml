@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage x:Class="UraniumApp.Pages.InputFieldsPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:input="clr-namespace:InputKit.Shared.Controls;assembly=InputKit.Maui"
+             xmlns:validation="clr-namespace:InputKit.Shared.Validations;assembly=InputKit.Maui"
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             xmlns:m="clr-namespace:UraniumUI.Icons.MaterialSymbols;assembly=UraniumUI.Icons.MaterialSymbols"
+             xmlns:local="clr-namespace:UraniumApp.Pages">
+    <ContentPage.Content>
+        <ScrollView>
+            <VerticalStackLayout Padding="20">
+
+                <input:FormView Spacing="20">
+
+                    <material:TextField Title="E-mail" Icon="{FontImageSource FontFamily=MaterialSharp, Glyph={x:Static m:MaterialSharp.Mail}}">
+                        <validation:RequiredValidation />
+                        <validation:RegexValidation Pattern="{x:Static input:AdvancedEntry.REGEX_EMAIL}" Message="Invalid email address" />
+                    </material:TextField>
+
+                    <material:TextField Title="Name" AllowClear="True" Icon="{FontImageSource FontFamily=MaterialSharp, Glyph={x:Static m:MaterialSharp.Person}}">
+                        <validation:LettersOnlyValidation AllowSpaces="True" />
+                        <validation:RequiredValidation />
+                        <validation:MinLengthValidation MinLength="5" />
+                    </material:TextField>
+
+                    <material:AutoCompleteTextField Title="Fruit" 
+                            Icon="{FontImageSource FontFamily=MaterialSharp, Glyph={x:Static m:MaterialSharp.Forest}}">
+                        <material:AutoCompleteTextField.ItemsSource>
+                            <x:String>Apple</x:String>
+                            <x:String>Orange</x:String>
+                            <x:String>Banana</x:String>
+                            <x:String>Strawberry</x:String>
+                            <x:String>Watermelon</x:String>
+                            <x:String>Cherry</x:String>
+                            <x:String>Blueberry</x:String>
+                            <x:String>Blackberry</x:String>
+                            <x:String>Pineapple</x:String>
+                            <x:String>Coconut</x:String>
+                            <x:String>Apricot</x:String>
+                            <x:String>Avocado</x:String>
+                            <x:String>Plum</x:String>
+                            <x:String>Fig</x:String>
+                            <x:String>Grape</x:String>
+                            <x:String>Guava</x:String>
+                            <x:String>Lemon</x:String>
+                            <x:String>Lime</x:String>
+                            <x:String>Mango</x:String>
+                            <x:String>Passion Fruit</x:String>
+                            <x:String>Peach</x:String>
+                            <x:String>Pear</x:String>
+                            <x:String>Pomegranate</x:String>
+                            <x:String>Raspberry</x:String>
+                            <x:String>Tomato</x:String>
+                        </material:AutoCompleteTextField.ItemsSource>
+                    </material:AutoCompleteTextField>
+
+                    <material:TimePickerField Title="Pick a time" Icon="{FontImageSource FontFamily=MaterialSharp, Glyph={x:Static m:MaterialSharp.Alarm}}">
+                        <validation:MinValueValidation MinValue="09:00" />
+                        <validation:MaxValueValidation MaxValue="12:00" />
+                    </material:TimePickerField>
+                    
+                    <material:TextField Title="Age" Keyboard="Numeric" Icon="{FontImageSource FontFamily=MaterialSharp, Glyph={x:Static m:MaterialSharp.Numbers}}">
+                        <material:TextField.Validations>
+                            <validation:MinValueValidation MinValue="18" />
+                            <validation:DigitsOnlyValidation />
+                        </material:TextField.Validations>
+                    </material:TextField>
+
+                    <material:DatePickerField Title="What is your birth date?"  Icon="{FontImageSource FontFamily=MaterialSharp, Glyph={x:Static m:MaterialSharp.Calendar_month}}">
+                        <validation:MinValueValidation MinValue="9/18/2022" />
+                        <validation:RequiredValidation />
+                    </material:DatePickerField>
+
+                    <Button StyleClass="FilledButton"
+                            Text="Submit"
+                            input:FormView.IsSubmitButton="True"/>
+
+
+                </input:FormView>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

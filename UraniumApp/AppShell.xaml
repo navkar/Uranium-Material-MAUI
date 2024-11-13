@@ -1,0 +1,234 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="UraniumApp.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:UraniumApp"
+    xmlns:pages="clr-namespace:UraniumApp.Pages"
+    xmlns:bsheet="clr-namespace:UraniumApp.Pages.BottomSheets"
+    xmlns:backdrop="clr-namespace:UraniumApp.Pages.Backdrops"
+    xmlns:dataGrid="clr-namespace:UraniumApp.Pages.DataGrids"
+    xmlns:m="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
+    xmlns:tabs="clr-namespace:UraniumApp.Pages.TabViews"
+    xmlns:treeViews="clr-namespace:UraniumApp.Pages.TreeViews"
+    xmlns:inputFields="clr-namespace:UraniumApp.Pages.InputFields"
+    xmlns:autocompletes="clr-namespace:UraniumApp.Pages.AutoCompleteTextField"
+    xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
+    xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+    xmlns:plain="clr-namespace:Plainer.Maui.Controls;assembly=Plainer.Maui"
+    xmlns:input="clr-namespace:InputKit.Shared.Controls;assembly=InputKit.Maui"
+    x:Name="thisShell"
+    FlyoutBackgroundColor="{AppThemeBinding Light={StaticResource Surface}, Dark={StaticResource SurfaceDark}}"
+    Shell.FlyoutBehavior="{OnIdiom Desktop=Locked, Default=Flyout}">
+    <Shell.Resources>
+        <Style TargetType="HorizontalStackLayout" ApplyToDerivedTypes="True" CanCascade="True">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="{AppThemeBinding Light=#30000000, Dark=#30ffffff}" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </Shell.Resources>
+
+    <Shell.FlyoutHeader>
+        <VerticalStackLayout StyleClass="PrimaryContainer" Padding="20">
+            <Label Text="☢️&#xA;Uranium UI" FontSize="Large" HorizontalTextAlignment="Center" Margin="10" />
+
+            <VerticalStackLayout BindingContext="{uranium:Inject Type={Type local:ThemeChangeViewModel}}" x:DataType="local:ThemeChangeViewModel">
+                
+                <Label Text="App Theme" HorizontalOptions="Center"/>
+
+                <input:SelectionView HorizontalOptions="Center"
+                    ItemsSource="{Binding AppThemeList}" SelectedItem="{Binding SelectedTheme}" 
+                    ColumnNumber="2" ColumnSpacing="-2" Color="{StaticResource Tertiary}" >
+                </input:SelectionView>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </Shell.FlyoutHeader>
+
+    <Shell.FlyoutContent>
+        <Grid RowDefinitions="Auto,*">
+
+            <Grid.BindingContext>
+                <local:AppShellContentViewModel CurrentShell="{x:Reference thisShell}"/>
+            </Grid.BindingContext>
+            <VerticalStackLayout>
+                <VerticalStackLayout Margin="8,8,8,0" BackgroundColor="{AppThemeBinding Light={StaticResource OnSurfaceDark}, Dark={StaticResource OnSurface}}" StyleClass="Elevation1">
+                    <plain:EntryView Margin="{OnPlatform Default=0, Android='8,0', iOS='8', MacCatalyst='8'}" Placeholder="Search" Text="{Binding SearchText}" PlaceholderColor="{AppThemeBinding Light={StaticResource OnSurface}, Dark={StaticResource OnSurfaceDark}}" ClearButtonVisibility="WhileEditing"/>
+                </VerticalStackLayout>
+                <BoxView StyleClass="Divider" />
+            </VerticalStackLayout>
+            <CollectionView Grid.Row="1" SelectedItem="{Binding SelectedItem}" SelectionMode="Single" ItemsSource="{Binding Items}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <HorizontalStackLayout Padding="20,12" Spacing="12">
+                            <Image Source="{Binding Icon}" WidthRequest="20" />
+                            <Label Text="{Binding Title}" VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </Shell.FlyoutContent>
+
+    <FlyoutItem Title="MainPage" Icon="{FontImageSource Glyph={x:Static m:MaterialOutlined.Home}, FontFamily=MaterialOutlined, Color={AppThemeBinding {StaticResource Primary}, Dark={StaticResource PrimaryDark}}}">
+        <ShellContent ContentTemplate="{DataTemplate local:MainPage}"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="ExpanderView" Icon="{FontImageSource Glyph={x:Static m:MaterialOutlined.Arrow_drop_down}, FontFamily=MaterialOutlined, Color={AppThemeBinding {StaticResource Primary}, Dark={StaticResource PrimaryDark}}}">
+        <ShellContent ContentTemplate="{DataTemplate pages:ExpanderViewPage}"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="GridLayout" Icon="{FontImageSource Glyph={x:Static m:MaterialOutlined.Grid_3x3}, FontFamily=MaterialOutlined, Color={AppThemeBinding {StaticResource Primary}, Dark={StaticResource PrimaryDark}}}">
+        <ShellContent ContentTemplate="{DataTemplate pages:GridLayoutPage}"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Buttons" Icon="{FontImageSource Glyph={x:Static m:MaterialOutlined.All_inbox}, FontFamily=MaterialOutlined, Color={AppThemeBinding {StaticResource Primary}, Dark={StaticResource PrimaryDark}}}">
+        <ShellContent ContentTemplate="{DataTemplate pages:ButtonsPage}"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="CheckBox" Icon="{FontImageSource Glyph={x:Static m:MaterialOutlined.Check_box}, FontFamily=MaterialOutlined, Color={AppThemeBinding {StaticResource Primary}, Dark={StaticResource PrimaryDark}}}">
+        <ShellContent ContentTemplate="{DataTemplate pages:CheckBoxesPage}"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="RadioButton" Icon="{FontImageSource Glyph={x:Static m:MaterialOutlined.Radio_button_unchecked}, FontFamily=MaterialOutlined, Color={AppThemeBinding {StaticResource Primary}, Dark={StaticResource PrimaryDark}}}">
+        <ShellContent ContentTemplate="{DataTemplate pages:RadioButtonsPage}"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="TextField" Icon="{FontImageSource Glyph={x:Static m:MaterialOutlined.Short_text}, FontFamily=MaterialOutlined, Color={AppThemeBinding {StaticResource Primary}, Dark={StaticResource PrimaryDark}}}">
+        <ShellContent ContentTemplate="{DataTemplate inputFields:TextFieldPage}" Icon="{FontImageSource Glyph={x:Static m:MaterialOutlined.Short_text}, FontFamily=MaterialOutlined, Color={AppThemeBinding {StaticResource Primary}, Dark={StaticResource PrimaryDark}}}"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="EditorField" Icon="{FontImageSource Glyph={x:Static m:MaterialOutlined.Wrap_text}, FontFamily=MaterialOutlined, Color={AppThemeBinding {StaticResource Primary}, Dark={StaticResource PrimaryDark}}}">
+        <ShellContent ContentTemplate="{DataTemplate inputFields:EditorFieldPage}" Icon="{FontImageSource Glyph={x:Static m:MaterialOutlined.Wrap_text}, FontFamily=MaterialOutlined, Color={AppThemeBinding {StaticResource Primary}, Dark={StaticResource PrimaryDark}}}"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="AutoCompleteTextField" Icon="{FontImageSource Glyph={x:Static m:MaterialOutlined.List_alt}, FontFamily=MaterialOutlined, Color={AppThemeBinding {StaticResource Primary}, Dark={StaticResource PrimaryDark}}}">
+        <ShellContent ContentTemplate="{DataTemplate inputFields:AutoCompleteTextFieldPage}" Icon="{FontImageSource Glyph={x:Static m:MaterialOutlined.List_alt}, FontFamily=MaterialOutlined, Color={AppThemeBinding {StaticResource Primary}, Dark={StaticResource PrimaryDark}}}"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="PickerField" Icon="{FontImageSource Glyph={x:Static m:MaterialOutlined.Arrow_circle_down}, FontFamily=MaterialOutlined, Color={AppThemeBinding {StaticResource Primary}, Dark={StaticResource PrimaryDark}}}">
+        <ShellContent ContentTemplate="{DataTemplate inputFields:PickerFieldPage}" Icon="{FontImageSource Glyph={x:Static m:MaterialOutlined.Arrow_circle_down}, FontFamily=MaterialOutlined, Color={AppThemeBinding {StaticResource Primary}, Dark={StaticResource PrimaryDark}}}"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="DropdownField" Icon="{FontImageSource Glyph={x:Static m:MaterialOutlined.Dropdown}, FontFamily=MaterialOutlined, Color={AppThemeBinding {StaticResource Primary}, Dark={StaticResource PrimaryDark}}}">
+        <ShellContent ContentTemplate="{DataTemplate pages:DropdownFieldPage}" Icon="{FontImageSource Glyph={x:Static m:MaterialOutlined.Dropdown}, FontFamily=MaterialOutlined, Color={AppThemeBinding {StaticResource Primary}, Dark={StaticResource PrimaryDark}}}"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="MultiplePickerField" Icon="{FontImageSource Glyph={x:Static m:MaterialOutlined.Arrow_circle_down}, FontFamily=MaterialOutlined, Color={AppThemeBinding {StaticResource Primary}, Dark={StaticResource PrimaryDark}}}">
+        <ShellContent ContentTemplate="{DataTemplate inputFields:MultiplePickerFieldPage}" Icon="{FontImageSource Glyph={x:Static m:MaterialOutlined.Grid_view}, FontFamily=MaterialOutlined, Color={AppThemeBinding {StaticResource Primary}, Dark={StaticResource PrimaryDark}}}"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="TimePickerField" Icon="{FontImageSource Glyph={x:Static m:MaterialOutlined.Alarm}, FontFamily=MaterialOutlined, Color={AppThemeBinding {StaticResource Primary}, Dark={StaticResource PrimaryDark}}}">
+        <ShellContent ContentTemplate="{DataTemplate inputFields:TimePickerFieldPage}" Icon="{FontImageSource Glyph={x:Static m:MaterialOutlined.Alarm}, FontFamily=MaterialOutlined, Color={AppThemeBinding {StaticResource Primary}, Dark={StaticResource PrimaryDark}}}"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="DatePickerField" Icon="{FontImageSource Glyph={x:Static m:MaterialOutlined.Calendar_month}, FontFamily=MaterialOutlined, Color={AppThemeBinding {StaticResource Primary}, Dark={StaticResource PrimaryDark}}}">
+        <ShellContent ContentTemplate="{DataTemplate inputFields:DatePickerFieldPage}" Icon="{FontImageSource Glyph={x:Static m:MaterialOutlined.Calendar_month}, FontFamily=MaterialOutlined, Color={AppThemeBinding {StaticResource Primary}, Dark={StaticResource PrimaryDark}}}"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Chips" Icon="{FontImageSource Glyph={x:Static m:MaterialOutlined.Do_not_disturb_on_total_silence}, FontFamily=MaterialOutlined, Color={AppThemeBinding {StaticResource Primary}, Dark={StaticResource PrimaryDark}}}">
+        <ShellContent  ContentTemplate="{DataTemplate pages:ChipsPage}"/>
+    </FlyoutItem>
+
+    <!--<Tab Title="Bottom Sheets">
+            <Tab.Icon>
+                <FontImageSource FontFamily="FASolid" Glyph="{x:Static fa:Solid.PersonArrowUpFromLine}" Color="{StaticResource Primary}" />
+            </Tab.Icon>
+            <ShellContent Title="Bottom Sheets" ContentTemplate="{DataTemplate bsheet:BottomSheetsIndexPage}"/>
+        </Tab>-->
+
+    <FlyoutItem Title="Bottom Sheet" Icon="{FontImageSource Glyph={x:Static m:MaterialOutlined.Arrow_upward}, FontFamily=MaterialOutlined, Color={AppThemeBinding {StaticResource Primary}, Dark={StaticResource PrimaryDark}}}">
+        <ShellContent Title="Regular" ContentTemplate="{DataTemplate bsheet:RegularBottomSheetPage}"/>
+    </FlyoutItem>
+    <FlyoutItem Title="Bottom Sheet(Expanding)" Icon="{FontImageSource Glyph={x:Static m:MaterialOutlined.Arrow_upward}, FontFamily=MaterialOutlined, Color={AppThemeBinding {StaticResource Primary}, Dark={StaticResource PrimaryDark}}}">
+        <ShellContent Title="Expanding" ContentTemplate="{DataTemplate bsheet:ExpandingBottomSheetPage}"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Backdrop" Icon="{FontImageSource Glyph={x:Static m:MaterialOutlined.Arrow_downward}, FontFamily=MaterialOutlined, Color={AppThemeBinding {StaticResource Primary}, Dark={StaticResource PrimaryDark}}}">
+        <ShellContent Title="Simple" ContentTemplate="{DataTemplate backdrop:SimpleBackdropPage}"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="DataGrid" Icon="{FontImageSource Glyph={x:Static m:MaterialOutlined.Grid_3x3}, FontFamily=MaterialOutlined, Color={AppThemeBinding {StaticResource Primary}, Dark={StaticResource PrimaryDark}}}">
+        <ShellContent Title="DataGrid" ContentTemplate="{DataTemplate dataGrid:DataGridsIndexPage}">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="MaterialOutlined" Glyph="{x:Static m:MaterialOutlined.Grid_3x3}" Color="{StaticResource Primary}" />
+            </ShellContent.Icon>
+        </ShellContent>
+    </FlyoutItem>
+
+    <FlyoutItem Title="TabView" Icon="{FontImageSource Glyph={x:Static m:MaterialOutlined.Tab}, FontFamily=MaterialOutlined, Color={AppThemeBinding {StaticResource Primary}, Dark={StaticResource PrimaryDark}}}">
+        <ShellContent Title="Simple" ContentTemplate="{DataTemplate tabs:TabViewPage}"/>
+        <ShellContent Title="Custom TabItem" ContentTemplate="{DataTemplate tabs:CustomTabItemTabView}"/>
+        <ShellContent Title="WebView TabItem" ContentTemplate="{DataTemplate tabs:WebTabViewPage}"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="TreeView" Icon="{FontImageSource Glyph={x:Static m:MaterialOutlined.List_alt}, FontFamily=MaterialOutlined, Color={AppThemeBinding {StaticResource Primary}, Dark={StaticResource PrimaryDark}}}">
+        <ShellContent 
+            Title="Scenarios"
+            ContentTemplate="{DataTemplate treeViews:TreeViewPage}"
+            Icon="{FontImageSource Glyph={x:Static m:MaterialOutlined.List_alt}, FontFamily=MaterialOutlined, Color={AppThemeBinding {StaticResource Primary}, Dark={StaticResource PrimaryDark}}}"/>
+        <ShellContent 
+            Title="File System"
+            ContentTemplate="{DataTemplate treeViews:TreeViewFileSystemPage}"
+            Icon="{FontImageSource Glyph={x:Static m:MaterialOutlined.Folder}, FontFamily=MaterialOutlined, Color={AppThemeBinding {StaticResource Primary}, Dark={StaticResource PrimaryDark}}}"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Font Icons" Icon="{FontImageSource Glyph={x:Static m:MaterialOutlined.Emoji_symbols}, FontFamily=MaterialOutlined, Color={AppThemeBinding {StaticResource Primary}, Dark={StaticResource PrimaryDark}}}">
+        <ShellContent ContentTemplate="{DataTemplate pages:FontImagesPage}"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Elevation" Icon="{FontImageSource Glyph={x:Static m:MaterialOutlined.Vertical_shades}, FontFamily=MaterialOutlined, Color={AppThemeBinding {StaticResource Primary}, Dark={StaticResource PrimaryDark}}}">
+        <ShellContent Title="Elevation" ContentTemplate="{DataTemplate pages:ElevationsPage}"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Dialogs" Icon="{FontImageSource Glyph={x:Static m:MaterialOutlined.Auto_awesome_motion}, FontFamily=MaterialOutlined, Color={AppThemeBinding {StaticResource Primary}, Dark={StaticResource PrimaryDark}}}">
+        <ShellContent Title="Dialogs" ContentTemplate="{DataTemplate pages:DialogsPage}"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Validations" Icon="{FontImageSource Glyph={x:Static m:MaterialOutlined.Warning}, FontFamily=MaterialOutlined, Color={AppThemeBinding {StaticResource Primary}, Dark={StaticResource PrimaryDark}}}">
+        <ShellContent Title="Validations" ContentTemplate="{DataTemplate pages:ValidationsPage}"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="AutoFormView" Icon="{FontImageSource Glyph={x:Static m:MaterialOutlined.Dynamic_form}, FontFamily=MaterialOutlined, Color={AppThemeBinding {StaticResource Primary}, Dark={StaticResource PrimaryDark}}}">
+        <ShellContent Title="Blurs" ContentTemplate="{DataTemplate pages:AutoFormViewPage}"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Google AutoComplete" Icon="{FontImageSource Glyph={x:Static m:MaterialOutlined.Spellcheck}, FontFamily=MaterialOutlined, Color={AppThemeBinding {StaticResource Primary}, Dark={StaticResource PrimaryDark}}}">
+        <ShellContent Title="AutoComplete" ContentTemplate="{DataTemplate autocompletes:GoogleAutoCompletePage}"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Blurs" Icon="{FontImageSource Glyph={x:Static m:MaterialOutlined.Filter_center_focus}, FontFamily=MaterialOutlined, Color={AppThemeBinding {StaticResource Primary}, Dark={StaticResource PrimaryDark}}}">
+        <ShellContent Title="Blurs" ContentTemplate="{DataTemplate pages:BlurIndexPage}"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="MemoryLeakTest" FlyoutItemIsVisible="{x:Static local:App.IsDebug}" Icon="{FontImageSource Glyph={x:Static m:MaterialOutlined.Memory}, FontFamily=MaterialOutlined, Color={AppThemeBinding {StaticResource Primary}, Dark={StaticResource PrimaryDark}}}">
+        <ShellContent ContentTemplate="{DataTemplate pages:MemoryLeakTestPrePage}"/>
+    </FlyoutItem>
+
+    <!--
+        Shell has implicit conversion operators that enable the Shell visual hierarchy to be simplified.
+        This is possible because a subclassed Shell object can only ever contain a FlyoutItem object or a TabBar object,
+        which can only ever contain Tab objects, which can only ever contain ShellContent objects.
+
+        The implicit conversion automatically wraps the ShellContent objects below in Tab objects.
+        -->
+    <!--<ShellContent Title="Monkeys"
+                      Icon="monkey.png"
+                      ContentTemplate="{DataTemplate views:MonkeysPage}" />
+        <ShellContent Title="Elephants"
+                      Icon="elephant.png"
+                      ContentTemplate="{DataTemplate views:ElephantsPage}" />
+        <ShellContent Title="Bears"
+                      Icon="bear.png"
+                      ContentTemplate="{DataTemplate views:BearsPage}" />-->
+
+</Shell>

@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<uranium:UraniumContentPage x:Class="UraniumApp.Pages.BottomSheets.ExpandingBottomSheetPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:root="clr-namespace:UraniumApp"
+             xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             xmlns:local="clr-namespace:UraniumApp.Pages.BottomSheets">
+
+    <VerticalStackLayout Spacing="20" Padding="20">
+        <Border StyleClass="SurfaceContainer,Rounded" Margin="0,20,0,0" HorizontalOptions="Center">
+            <VerticalStackLayout Spacing="10">
+                <Label Text="Info" FontSize="20" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+
+                <Label Text="You can swipe up/down the bottom sheet or just click the anchor." HorizontalTextAlignment="Center" />
+                <Image HorizontalOptions="Center" IsVisible="{OnPlatform WinUI=False, MacCatalyst=False}">
+                    <Image.Source>
+                        <FontImageSource Size="75" FontFamily="MaterialRegular" Glyph="{x:Static uranium:MaterialSharp.Swipe_up}" Color="{AppThemeBinding {StaticResource OnSurface}, Dark={StaticResource OnSurfaceDark}}" />
+                    </Image.Source>
+                </Image>
+            </VerticalStackLayout>
+        </Border>
+
+        <Border StyleClass="SurfaceContainer,Rounded" MaximumWidthRequest="400">        
+          <root:PropertyEditorView Value="{Binding ., Source={x:Reference bottomPage}}"
+                                   HorizontalOptions="Center"/>
+      </Border>
+
+    </VerticalStackLayout>
+
+    <uranium:UraniumContentPage.Attachments>
+        <material:BottomSheetView x:Name="bottomPage" BackgroundColor="{DynamicResource Primary}">
+            <material:BottomSheetView.Header>
+                <Grid
+                    HeightRequest="60"
+                    BackgroundColor="{StaticResource Primary}"
+                    ColumnDefinitions="60,*,Auto,Auto" ColumnSpacing="10">
+                    <Grid.Shadow>
+                        <Shadow Brush="Black"
+                                Radius="20"
+                                Opacity="0.2" />
+                    </Grid.Shadow>
+                    <Image Source="tell_it_to_my_heart.jpg" />
+
+                    <Label Grid.Column="1" 
+                           Text="Tell it to my heart" 
+                           VerticalOptions="Center"
+                           FontSize="Medium"
+                           TextColor="{StaticResource OnPrimary}"/>
+
+                    <Label Grid.Column="2"
+                           Text="-1:42"
+                           VerticalOptions="Center"
+                           TextColor="{StaticResource OnPrimary}"/>
+
+                    <ImageButton Grid.Column="3" BackgroundColor="Transparent" Source="pause.png" VerticalOptions="Center" HeightRequest="15" WidthRequest="15" Margin="20"/>
+
+                </Grid>
+            </material:BottomSheetView.Header>
+            <TableView Intent="Menu" Margin="15" BackgroundColor="Transparent">
+                <TableRoot>
+                    <TableSection Title="Song Queue" TextColor="{StaticResource OnPrimary}">
+                        <TextCell Text="1. Self Control" TextColor="{StaticResource PrimaryContainer}"
+                                Detail="Laura Branigan" DetailColor="{StaticResource OnPrimary}"/>
+                        <TextCell Text="2. Like a Prayer" TextColor="{StaticResource PrimaryContainer}"
+                              Detail="Madonna" DetailColor="{StaticResource OnPrimary}"/>
+                        <TextCell Text="3. Johnny B." TextColor="{StaticResource PrimaryContainer}"
+                              Detail="The Hooters" DetailColor="{StaticResource OnPrimary}" />
+                        <TextCell Text="4. Final Countdown"  TextColor="{StaticResource PrimaryContainer}"
+                              Detail="Europe" DetailColor="{StaticResource OnPrimary}"/>
+                        <TextCell Text="5. Live I Life"  TextColor="{StaticResource PrimaryContainer}"
+                              Detail="Opus" DetailColor="{StaticResource OnPrimary}"/>
+                    </TableSection>
+                </TableRoot>
+            </TableView>
+        </material:BottomSheetView>
+    </uranium:UraniumContentPage.Attachments>
+</uranium:UraniumContentPage>

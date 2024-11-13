@@ -1,0 +1,41 @@
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:UraniumApp"
+             xmlns:c="clr-namespace:Microsoft.Maui.Controls;assembly=Microsoft.Maui.Controls"
+             xmlns:u="clr-namespace:UraniumUI.Resources;assembly=UraniumUI"
+             xmlns:m="clr-namespace:UraniumUI.Material.Resources;assembly=UraniumUI.Material"
+             xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
+             x:Class="UraniumApp.App">
+    <Application.Resources>
+       
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary x:Name="appColors" Source="Resources/Styles/Colors.xaml" />
+                <ResourceDictionary x:Name="appStyles" Source="Resources/Styles/Styles.xaml" />
+                <m:StyleResource BasedOn="{x:Reference appStyles}" />
+                <ResourceDictionary x:Name="overrideStyles" Source="Resources/Styles/Override.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style TargetType="Grid" Class="InputFieldDemoGrid">
+                <Setter Property="RowDefinitions" Value="{OnIdiom 'Auto,*', Desktop='*'}" />
+                <Setter Property="ColumnDefinitions" Value="{OnIdiom '*', Desktop='*,*'}"/>
+                <Setter Property="ColumnSpacing" Value="10" />
+                <Setter Property="RowSpacing" Value="10" />
+                <Setter Property="Padding" Value="30" />
+            </Style>
+
+            <Style TargetType="uranium:ExpanderView" CanCascade="True">
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Default=#29ffffff, Dark=#29000000}" />
+            </Style>
+
+            <Style TargetType="View" Class="ControlPreview" ApplyToDerivedTypes="True">
+                <Setter Property="HorizontalOptions" Value="Start" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="WidthRequest" Value="300" />
+                <Setter Property="Margin" Value="20" />
+            </Style>
+        </ResourceDictionary>
+
+    </Application.Resources>
+</Application>

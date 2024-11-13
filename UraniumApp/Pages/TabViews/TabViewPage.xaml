@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage x:Class="UraniumApp.Pages.TabViews.TabViewPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             xmlns:input="clr-namespace:InputKit.Shared.Controls;assembly=InputKit.Maui"
+             xmlns:m="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
+             xmlns:root="clr-namespace:UraniumApp"
+             xmlns:local="clr-namespace:UraniumApp.Pages">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="20" Spacing="15">
+
+                <Border StyleClass="SurfaceContainer,Rounded,Elevation1">
+                    <material:TabView x:Name="tabView" TabHeaderItemColumnWidth="*">
+                        <material:TabItem Title="Tab One">
+                            <material:TabItem.ContentTemplate>
+                                <DataTemplate>
+                                    <Label Text="First Tab" HorizontalOptions="Center" VerticalOptions="Center" Margin="50" />
+                                </DataTemplate>
+                            </material:TabItem.ContentTemplate>
+                        </material:TabItem>
+
+                        <material:TabItem Title="Tab Two">
+                            <material:TabItem.ContentTemplate>
+                                <DataTemplate>
+                                    <Label Text="Second Tab" HorizontalOptions="Center" VerticalOptions="Center" Margin="50" />
+                                </DataTemplate>
+                            </material:TabItem.ContentTemplate>
+                        </material:TabItem>
+
+                        <material:TabItem Title="Tab Three">
+                            <material:TabItem.ContentTemplate>
+                                <DataTemplate>
+                                    <Label Text="Third Tab" HorizontalOptions="Center" VerticalOptions="Center" Margin="50" />
+                                </DataTemplate>
+                            </material:TabItem.ContentTemplate>
+                        </material:TabItem>
+                    </material:TabView>
+                </Border>
+
+                <BoxView StyleClass="Divider" />
+
+                <Border StyleClass="SurfaceContainer,Rounded,Elevation1" MaximumWidthRequest="400">
+                    <root:PropertyEditorView
+                        ShowMissingProperties="False"
+                        Value="{Binding ., Source={x:Reference tabView}}"
+                        HorizontalOptions="Center"/>
+                </Border>
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

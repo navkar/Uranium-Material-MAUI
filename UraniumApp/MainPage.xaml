@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:UraniumApp"
+             xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             xmlns:plain="clr-namespace:Plainer.Maui.Controls;assembly=Plainer.Maui"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:mtk="clr-namespace:MemoryToolkit.Maui;assembly=MemoryToolkit.Maui"
+             mtk:LeakMonitorBehavior.Cascade="True"
+             x:Class="UraniumApp.MainPage">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="New" Clicked="ToolbarItem_Clicked" />
+    </ContentPage.ToolbarItems>
+
+    <VerticalStackLayout Spacing="25">
+        <StackLayout StyleClass="PrimaryContainer" Padding="20" HeightRequest="150">
+            <Label Text="Hello, Uranium! ☢️" FontSize="Large" />
+            <Label Text="Welcome to the demo app." />
+        </StackLayout>
+
+        <Grid ColumnDefinitions="Auto,*">
+            <Image Rotation="-45" Margin="15">
+                <Image.Source>
+                    <FontImageSource Size="55" FontFamily="MaterialRounded" Glyph="{x:Static uranium:MaterialRounded.Pan_tool_alt}" Color="{AppThemeBinding {StaticResource OnBackground}, Dark={StaticResource OnBackgroundDark}}" />
+                </Image.Source>
+            </Image>
+            <Label FontSize="Large" Grid.Column="1" Text="Use the side navigation drawer to navigate to the other pages." VerticalOptions="Center"/>
+        </Grid>
+
+        <uranium:SelectableLabel Margin="15" Text="Hello, World! This text should be selectable!" />
+
+    </VerticalStackLayout>
+</ContentPage>

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             xmlns:m="clr-namespace:UraniumUI.Icons.MaterialSymbols;assembly=UraniumUI.Icons.MaterialSymbols"
+             xmlns:vm="clr-namespace:UraniumApp.ViewModels.InputFields"
+             xmlns:local="clr-namespace:UraniumApp"
+             x:DataType="vm:TextFieldViewModel"
+             x:Class="UraniumApp.Pages.InputFields.TextFieldPage">
+
+    <ContentPage.Resources>
+        
+        <x:String x:Key="SourceCode">
+            <![CDATA[
+<VerticalStackLayout Spacing="12">
+    <material:TextField Title="Name" />
+    <material:TextField Title="Surname" />
+    <material:TextField Title="Age" Keyboard="Numeric" />
+</VerticalStackLayout>
+            ]]>
+        </x:String>
+        <x:String x:Key="SourceCode2">
+            <![CDATA[
+<material:TextField
+    Title="E-mail"
+    Icon="{FontImageSource FontFamily=MaterialSharp, Glyph={x:Static m:MaterialSharp.Email}}"/>
+            ]]>
+        </x:String>
+        <x:String x:Key="SourceCode3">
+            <![CDATA[
+<VerticalStackLayout Spacing="12">
+
+    <material:TextField Title="E-mail" AllowClear="True"
+        Icon="{FontImageSource FontFamily=MaterialSharp, Glyph={x:Static m:MaterialSharp.Email}}"/>
+
+    <material:TextField Title="Password" AllowClear="True" IsPassword="True" IsTextPredictionEnabled="False"
+            Icon="{FontImageSource FontFamily=MaterialSharp, Glyph={x:Static m:MaterialSharp.Password}}">
+        <material:TextField.Attachments>
+            <material:TextFieldPasswordShowHideAttachment />
+        </material:TextField.Attachments>
+    </material:TextField>
+
+</VerticalStackLayout>
+            ]]>
+        </x:String>
+
+        <x:String x:Key="DocLink">https://enisn-projects.io/docs/en/uranium/latest/themes/material/components/TextField</x:String>
+        <x:String x:Key="SourceLink">https://github.com/enisn/UraniumUI/blob/develop/demo/UraniumApp/Pages/InputFields/TextFieldPage.xaml</x:String>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20">
+            <Label Text="{Binding Title}" FontSize="Title" />
+            <Label Text="UraniumUI.Material.Controls" FontSize="Micro" Opacity=".6" />
+
+            <HorizontalStackLayout Padding="0,20">
+                <Button Text="Documentation" Command="{x:Static uranium:Commands.OpenLinkCommand}" CommandParameter="{StaticResource DocLink}" StyleClass="OutlinedButton" ImageSource="{FontImageSource Glyph={x:Static m:MaterialSharp.File_open}, FontFamily=MaterialSharp, Color={AppThemeBinding {StaticResource OnBackground}, Dark={StaticResource OnBackgroundDark}}}" />
+                <Button Text="Source" StyleClass="OutlinedButton" Command="{x:Static uranium:Commands.OpenLinkCommand}" CommandParameter="{StaticResource SourceLink}" ImageSource="{FontImageSource Glyph={x:Static m:MaterialSharp.Code}, FontFamily=MaterialSharp, Color={AppThemeBinding {StaticResource OnBackground}, Dark={StaticResource OnBackgroundDark}}}" />
+                <Button Text="Reset" Clicked="Reset_Clicked" StyleClass="OutlinedButton" ImageSource="{FontImageSource Glyph={x:Static m:MaterialSharp.Refresh}, FontFamily=MaterialSharp, Color={AppThemeBinding {StaticResource OnBackground}, Dark={StaticResource OnBackgroundDark}}}" />
+            </HorizontalStackLayout>
+
+            <Label Text="Text fields let users enter and edit text. It is an abstraction on MAUI Level for material inputs." />
+
+            <Border Margin="{OnIdiom 10, Phone=0}" StyleClass="SurfaceContainer, Rounded" StrokeThickness="0">
+                <VerticalStackLayout>
+                    <Label Text="Simple set of TextFields." FontSize="Subtitle" Margin="20"/>
+
+                    <VerticalStackLayout StyleClass="ControlPreview" Spacing="12">
+                        <material:TextField Title="Name" />
+                        <material:TextField Title="Surname" />
+                        <material:TextField Title="Age" Keyboard="Numeric" />
+                    </VerticalStackLayout>
+
+                    <uranium:ExpanderView>
+                        <uranium:ExpanderView.Header>
+                            <Label Text="Source Code (XAML)" Padding="10" />
+                        </uranium:ExpanderView.Header>
+                        <Grid>
+                            <uranium:CodeView Language="xml" SourceCode="{StaticResource SourceCode}" HeightRequest="120"/>
+                            <local:CopyButton TextToCopy="{StaticResource SourceCode}" />
+                        </Grid>
+                    </uranium:ExpanderView>
+                </VerticalStackLayout>
+            </Border>
+
+            <BoxView StyleClass="Divider" />
+
+            <Border Margin="{OnIdiom 10, Phone=0}" StyleClass="SurfaceContainer, Rounded" StrokeThickness="0">
+                <VerticalStackLayout>
+                    <Label Text="TextField with Icon" FontSize="Subtitle" Margin="20"/>
+                    <VerticalStackLayout StyleClass="ControlPreview">
+                        <material:TextField
+                            Title="E-mail"
+                            Icon="{FontImageSource FontFamily=MaterialSharp, Glyph={x:Static m:MaterialSharp.Mail}}"/>
+
+                    </VerticalStackLayout>
+
+                    <uranium:ExpanderView>
+                        <uranium:ExpanderView.Header>
+                            <Label Text="Source Code (XAML)" Padding="10" />
+                        </uranium:ExpanderView.Header>
+                        <Grid>
+                            <uranium:CodeView Language="xml" SourceCode="{StaticResource SourceCode2}" HeightRequest="80"/>
+                            <local:CopyButton TextToCopy="{StaticResource SourceCode2}" />
+                        </Grid>
+                    </uranium:ExpanderView>
+                </VerticalStackLayout>
+            </Border>
+            
+            <BoxView StyleClass="Divider" />
+            
+            <Border Margin="{OnIdiom 10, Phone=0}" StyleClass="SurfaceContainer, Rounded" StrokeThickness="0">
+                <VerticalStackLayout>
+                    <Label Text="Password show/hide Button" FontSize="Subtitle" Margin="20"/>
+                    <VerticalStackLayout StyleClass="ControlPreview" Spacing="12">
+                        <material:TextField
+                            Title="E-mail"
+                            AllowClear="True"
+                            Icon="{FontImageSource FontFamily=MaterialSharp, Glyph={x:Static m:MaterialSharp.Mail}}"/>
+
+                        <material:TextField
+                            Title="Password"
+                            AllowClear="True"
+                            IsPassword="True"
+                            IsTextPredictionEnabled="False"
+                            Icon="{FontImageSource FontFamily=MaterialSharp, Glyph={x:Static m:MaterialSharp.Password}}">
+                            <material:TextField.Attachments>
+                                <material:TextFieldPasswordShowHideAttachment />
+                            </material:TextField.Attachments>
+                        </material:TextField>
+
+                    </VerticalStackLayout>
+
+                    <uranium:ExpanderView>
+                        <uranium:ExpanderView.Header>
+                            <Label Text="Source Code (XAML)" Padding="10" />
+                        </uranium:ExpanderView.Header>
+                        <Grid>
+                            <uranium:CodeView Language="xml" SourceCode="{StaticResource SourceCode3}" HeightRequest="240"/>
+                            <local:CopyButton TextToCopy="{StaticResource SourceCode3}" />
+                        </Grid>
+                    </uranium:ExpanderView>
+                </VerticalStackLayout>
+            </Border>
+
+            <BoxView StyleClass="Divider" />
+
+            <VerticalStackLayout Spacing="12" Margin="{OnIdiom 10, Phone=0}">
+                <local:ViewShowcaseView>
+
+                    <ContentView Content="{Binding Control}" StyleClass="ControlPreview" />
+
+                    <local:ViewShowcaseView.SidePanel>
+                        <VerticalStackLayout Padding="20,20,20,0" Spacing="20">
+                            <local:PropertyEditorView MaximumHeightRequest="600"
+                                HierarchyLimitType="{Type material:InputField}"
+                                Hierarchical="True"
+                                Value="{Binding Control}"
+                                EditingProperties="{Binding EditingProperties}"/>
+                        </VerticalStackLayout>
+                    </local:ViewShowcaseView.SidePanel>
+                    <local:ViewShowcaseView.BottomView>
+                        <uranium:ExpanderView>
+                            <uranium:ExpanderView.Header>
+                                <Label Margin="10" Text="Source Code (XAML)" />
+                            </uranium:ExpanderView.Header>
+                            <Grid>
+                                <uranium:CodeView Language="xml" SourceCode="{Binding XamlSourceCode}" HeightRequest="120"/>
+                                <local:CopyButton TextToCopy="{Binding XamlSourceCode}" />
+                            </Grid>
+                        </uranium:ExpanderView>
+                    </local:ViewShowcaseView.BottomView>
+                </local:ViewShowcaseView>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

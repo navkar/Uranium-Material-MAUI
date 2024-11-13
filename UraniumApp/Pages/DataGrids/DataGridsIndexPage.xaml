@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage x:Class="UraniumApp.Pages.DataGrids.DataGridsIndexPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:t="clr-namespace:UraniumUI.Theming;assembly=UraniumUI"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:UraniumApp.Pages.DataGrids">
+    <ContentPage.Content>
+        <StackLayout Padding="25" Spacing="10" MaximumWidthRequest="400">
+            <StackLayout.Resources>
+                <Style TargetType="Button">
+                    <Setter Property="t:CascadingStyle.StyleClass" Value="TextButton" />
+                </Style>
+            </StackLayout.Resources>
+            
+            <Button Text="Simple DataGrid" Clicked="GoToSimpleDataGrid" />
+            <Button Text="Simple with Custom Headers" Clicked="GoToSimpleCustomTitleDataGrid" />
+            <Button Text="Custom DataGrid" Clicked="GoToCustomDataGrid" />
+            <Button Text="Selectable DataGrid" Clicked="GoToSelectableDataGrid" />
+            <Button Text="Edit Mode DataGrid" Clicked="GoToEditorDataGrid" />
+            <Button Text="Pagination" Clicked="GoToPaginationDataGrid" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

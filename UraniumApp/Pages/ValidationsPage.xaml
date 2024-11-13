@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage x:Class="UraniumApp.Pages.ValidationsPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             xmlns:input="clr-namespace:InputKit.Shared.Controls;assembly=InputKit.Maui"
+             xmlns:validation="clr-namespace:InputKit.Shared.Validations;assembly=InputKit.Maui"
+             xmlns:v="clr-namespace:UraniumUI.Validations;assembly=UraniumUI.Validations.DataAnnotations"
+             xmlns:vm="clr-namespace:UraniumApp.ViewModels"
+             xmlns:m="clr-namespace:UraniumUI.Icons.MaterialSymbols;assembly=UraniumUI.Icons.MaterialSymbols"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:UraniumApp.Pages">
+    <ContentPage.BindingContext>
+        <vm:ValidationsPageViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Clicked="ToolbarItem_Clicked" IconImageSource="{FontImage FontFamily=MaterialSharp,Glyph={x:Static m:MaterialSharp.Open_in_new}, Color={StaticResource OnPrimary}}" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <ScrollView HorizontalOptions="Fill">
+            <StackLayout Padding="25" MaximumWidthRequest="400">
+                <input:FormView SubmitCommand="{Binding SubmitCommand}" Spacing="20">
+
+                    <material:TextField Title="Email"
+                                        Text="{v:ValidationBinding Email}"
+                                        Icon="{FontImage FontFamily=MaterialSharp, Glyph={x:Static m:MaterialSharp.Mail}}">
+                    </material:TextField>
+
+                    <material:TextField Title="Fullname" 
+                                        Text="{v:ValidationBinding FullName}"
+                                        Icon="{FontImage FontFamily=MaterialSharp, Glyph={x:Static m:MaterialSharp.Person}}">
+                    </material:TextField>
+
+                    <material:PickerField Title="Gender" AllowClear="True"
+                                          SelectedItem="{Binding Gender}"
+                                          Icon="{FontImage FontFamily=MaterialSharp, Glyph={x:Static m:MaterialSharp.Agender}}">
+                        <material:PickerField.ItemsSource>
+                            <x:Array Type="{x:Type vm:Gender}">
+                                <vm:Gender>Other</vm:Gender>
+                                <vm:Gender>Male</vm:Gender>
+                                <vm:Gender>Female</vm:Gender>
+                            </x:Array>
+                        </material:PickerField.ItemsSource>
+                        <validation:RequiredValidation />
+                    </material:PickerField>
+
+                    <material:DatePickerField Title="Birth Date"
+                                        Date="{Binding BirthDate}" 
+                                        Icon="{FontImage FontFamily=MaterialSharp, Glyph={x:Static m:MaterialSharp.Calendar_month}}">
+                        <validation:RequiredValidation />
+                    </material:DatePickerField>
+
+                    <material:TimePickerField Title="Preferred Meeting Time"
+                                        Time="{Binding MeetingTime}" 
+                                        Icon="{FontImage FontFamily=MaterialSharp, Glyph={x:Static m:MaterialSharp.Alarm}}">
+                        <validation:RequiredValidation />
+                        <validation:MinValueValidation MinValue="07:00" />
+                        <validation:MinValueValidation MinValue="10:30" />
+                    </material:TimePickerField>
+
+                    <material:TextField Title="Number of seats"
+                                        Text="{Binding NumberOfSeats}"
+                                        Keyboard="Numeric"
+                                        Icon="{FontImage FontFamily=MaterialSharp, Glyph={x:Static m:MaterialSharp.Airline_seat_recline_normal}}">
+                        <validation:RequiredValidation />
+                        <validation:DigitsOnlyValidation />
+                    </material:TextField>
+
+                    <material:CheckBox Text="I Accept Terms &amp; Conditions"
+                                       IsChecked="{Binding IsTermsAndConditionsAccepted}">
+                        <validation:RequiredValidation />
+                    </material:CheckBox>
+
+                    <Button Text="Submit"
+                            input:FormView.IsSubmitButton="True"
+                            StyleClass="FilledButton"/>
+
+                    <Button Text="Reset"
+                            input:FormView.IsResetButton="True"
+                            StyleClass="OutlinedButton"/>
+
+                    <Button Text="Fill" 
+                            Command="{Binding FillCommand}"
+                            StyleClass="FilledTonalButton"/>
+                </input:FormView>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
