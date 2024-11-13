@@ -65,6 +65,13 @@ dotnet add package UraniumUI.Dialogs.Mopups
 dotnet add package UraniumUI.Validations.DataAnnotations
 ```
 
+## UI screenshots
+
+| Menu  | Controls 1 | Controls 2 |
+| :----------------: | :------: | :----: |
+| ![3](https://github.com/user-attachments/assets/2a46a612-ddc5-4db1-ad82-499a357b489a) | ![7](https://github.com/user-attachments/assets/e149fbbd-8a79-4714-b2bc-40999384fe70) | ![6](https://github.com/user-attachments/assets/5fb6320f-db11-4010-bc08-2d8f6e8fcb93) |
+
+
 #### GitHub Powershell commands
 
 ```bash
